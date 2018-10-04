@@ -1,0 +1,49 @@
+#!/system/bin/sh
+#
+# Unified Hosts Adblock
+#
+# Copyright (C) 2018 xtrymind
+
+alias wget="/sbin/.core/busybox/wget"
+alias grep="/sbin/.core/busybox/grep"
+alias cat="/sbin/.core/busybox/cat"
+HOST=/sbin/.core/img/.core/hosts
+WHITELIST=/sdcard/whitelist
+BLACKLIST=/sdcard/blacklist
+UNBLOCK=/sdcard/unblock
+TEMP=/cache/host_temp
+
+# Gather parameters on extension
+while [ ${#} -ge 1 ]; do
+    case ${1} in
+        # Extension
+        "-e"|"--extension")
+            shift "${@}"
+            EX=$(sed 's/,/-/g' <<< "${1}") ;;
+    esac
+    shift
+done
+
+# Default parameters if no extension
+[ -z "${EX}" ] && EX="fakenews-gambling"
+
+echo "Downloading hosts file for ${EX}"
+wget -O $HOST --no-check-certificate https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/${EX}/hosts
+
+if [ -f $WHITELIST ]; then
+	echo "Applying Whitelist"
+	grep -Fvxf $WHITELIST $HOST > $TEMP
+	mv $TEMP $HOST
+fi
+if [ -f $BLACKLIST ]; then
+	echo "Applying Blacklist"
+	cat $HOST $BLACKLIST > $TEMP
+	mv $TEMP $HOST
+fi
+if [ -f $UNBLOCK ]; then
+	echo "Applying Unblock"
+	cat $HOST $UNBLOCK > $TEMP
+	mv $TEMP $HOST
+fi
+
+echo "Done!"

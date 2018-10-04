@@ -1,7 +1,7 @@
-id=template
-name=Template Module
+id=unifiedhost
+name=Unified Hosts
 version=v1
-versionCode=1
-author=topjohnwu
-description=A short description
+versionCode=20181004-1
+author=xtrymind
+description=A small program to download unified host from https://github.com/StevenBlack/hosts with additional whitelist, blacklist, and unblock
 minMagisk=17000
