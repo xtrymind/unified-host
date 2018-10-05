@@ -7,6 +7,7 @@
 alias wget="/sbin/.core/busybox/wget"
 alias grep="/sbin/.core/busybox/grep"
 alias cat="/sbin/.core/busybox/cat"
+alias sed="/sbin/.core/busybox/sed"
 HOST=/sbin/.core/img/.core/hosts
 WHITELIST=/sdcard/whitelist
 BLACKLIST=/sdcard/blacklist
@@ -24,7 +25,7 @@ while [ ${#} -ge 1 ]; do
     shift
 done
 
-# Default parameters if no extension
+# Default parameters if no extension given
 [ -z "${EX}" ] && EX="fakenews-gambling"
 
 echo "Downloading hosts file for ${EX}"
@@ -37,8 +38,15 @@ if [ -f $WHITELIST ]; then
 fi
 if [ -f $BLACKLIST ]; then
 	echo "Applying Blacklist"
-	cat $HOST $BLACKLIST > $TEMP
-	mv $TEMP $HOST
+	NEWFILTERS="$(cat $BLACKLIST)"
+	printf '%s\n' "$NEWFILTERS" | while IFS= read -r linenew
+	do
+		if grep -qi "^[0]" <<<"$linenew"; then
+			sed -i -e "\$a $linenew" $HOST
+		else
+			sed -i -e "\$a0.0.0.0 $linenew" $HOST
+		fi
+	done
 fi
 if [ -f $UNBLOCK ]; then
 	echo "Applying Unblock"
