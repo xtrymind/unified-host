@@ -4,11 +4,11 @@
 #
 # Copyright (C) 2018 xtrymind
 
-alias wget="/sbin/.core/busybox/wget"
-alias grep="/sbin/.core/busybox/grep"
-alias cat="/sbin/.core/busybox/cat"
-alias sed="/sbin/.core/busybox/sed"
-HOST=/sbin/.core/img/.core/hosts
+alias wget="/sbin/.magisk/busybox/wget"
+alias grep="/sbin/.magisk/busybox/grep"
+alias cat="/sbin/.magisk/busybox/cat"
+alias sed="/sbin/.magisk/busybox/sed"
+HOST=/sbin/.magisk/img/.core/hosts
 WHITELIST=/sdcard/whitelist
 BLACKLIST=/sdcard/blacklist
 UNBLOCK=/sdcard/unblock
