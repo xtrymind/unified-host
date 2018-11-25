@@ -4,11 +4,13 @@
 #
 # Copyright (C) 2018 xtrymind
 
-alias wget="/sbin/.magisk/busybox/wget"
+if [ ! -f /system/xbin/wget ]; then
+	alias wget="/sbin/.magisk/busybox/wget"
+fi
 alias grep="/sbin/.magisk/busybox/grep"
 alias cat="/sbin/.magisk/busybox/cat"
 alias sed="/sbin/.magisk/busybox/sed"
-HOST=/sbin/.magisk/img/.core/hosts
+HOST=/sbin/.magisk/img/hosts/system/etc/hosts
 WHITELIST=/sdcard/whitelist
 BLACKLIST=/sdcard/blacklist
 UNBLOCK=/sdcard/unblock
