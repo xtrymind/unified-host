@@ -1,7 +1,7 @@
 id=unifiedhost
 name=Unified Hosts
-version=v1.7
-versionCode=201812141
+version=v1.8
+versionCode=201812142
 author=xtrymind
-description=A small program to download unified host from https://github.com/StevenBlack/hosts with additional whitelist, blacklist, and unblock
+description=A small magisk module to download unified host from https://github.com/StevenBlack/hosts with whitelist, blacklist, and myhost
 minMagisk=17000
