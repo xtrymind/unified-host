@@ -13,7 +13,7 @@ alias sed="/sbin/.magisk/busybox/sed"
 HOST=/sbin/.magisk/img/hosts/system/etc/hosts
 WHITELIST=/sdcard/whitelist
 BLACKLIST=/sdcard/blacklist
-UNBLOCK=/sdcard/unblock
+UNBLOCK=/sdcard/myhosts
 TEMP=/cache/host_temp
 
 # Gather parameters on extension
@@ -35,7 +35,7 @@ wget -O $HOST --no-check-certificate https://raw.githubusercontent.com/StevenBla
 
 if [ -f $WHITELIST ]; then
 	echo "Applying Whitelist"
-	grep -Fvxf $WHITELIST $HOST > $TEMP
+	grep -Fvf $WHITELIST $HOST > $TEMP
 	mv $TEMP $HOST
 fi
 if [ -f $BLACKLIST ]; then
