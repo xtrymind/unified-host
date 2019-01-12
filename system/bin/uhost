@@ -2,9 +2,9 @@
 #
 # Unified Hosts Adblock
 #
-# Copyright (C) 2018 xtrymind
+# Copyright (C) 2018-2019 xtrymind
 
-if [ ! -f /system/xbin/wget ]; then
+if [[ ! -f /system/xbin/wget ]]; then
 	alias wget="/sbin/.magisk/busybox/wget"
 fi
 alias grep="/sbin/.magisk/busybox/grep"
@@ -17,7 +17,7 @@ UNBLOCK=/sdcard/myhosts
 TEMP=/cache/host_temp
 
 # Gather parameters on extension
-while [ ${#} -ge 1 ]; do
+while [[ ${#} -ge 1 ]]; do
     case ${1} in
         # Extension
         "-e"|"--extension")
@@ -28,17 +28,18 @@ while [ ${#} -ge 1 ]; do
 done
 
 # Default parameters if no extension given
-[ -z "${EX}" ] && EX="fakenews-gambling"
+[[ -z "${EX}" ]] && EX="fakenews-gambling"
 
 echo "Downloading hosts file for ${EX}"
 wget -O $HOST --no-check-certificate https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/${EX}/hosts
 
-if [ -f $WHITELIST ]; then
+if [[ -f $WHITELIST ]]; then
 	echo "Applying Whitelist"
 	grep -Fvf $WHITELIST $HOST > $TEMP
 	mv $TEMP $HOST
 fi
-if [ -f $BLACKLIST ]; then
+
+if [[ -f $BLACKLIST ]]; then
 	echo "Applying Blacklist"
 	NEWFILTERS="$(cat $BLACKLIST)"
 	printf '%s\n' "$NEWFILTERS" | while IFS= read -r linenew
@@ -50,7 +51,8 @@ if [ -f $BLACKLIST ]; then
 		fi
 	done
 fi
-if [ -f $UNBLOCK ]; then
+
+if [[ -f $UNBLOCK ]]; then
 	echo "Applying Unblock"
 	cat $HOST $UNBLOCK > $TEMP
 	mv $TEMP $HOST
