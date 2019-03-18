@@ -12,7 +12,6 @@ alias cat="/sbin/.magisk/busybox/cat"
 alias sed="/sbin/.magisk/busybox/sed"
 HOST=/sbin/.magisk/img/hosts/system/etc/hosts
 WHITELIST=/sdcard/whitelist
-BLACKLIST=/sdcard/blacklist
 UNBLOCK=/sdcard/myhosts
 TEMP=/cache/host_temp
 
@@ -37,19 +36,6 @@ if [[ -f $WHITELIST ]]; then
 	echo "Applying Whitelist"
 	grep -Fvf $WHITELIST $HOST > $TEMP
 	mv $TEMP $HOST
-fi
-
-if [[ -f $BLACKLIST ]]; then
-	echo "Applying Blacklist"
-	NEWFILTERS="$(cat $BLACKLIST)"
-	printf '%s\n' "$NEWFILTERS" | while IFS= read -r linenew
-	do
-		if grep -qi "^[0]" <<<"$linenew"; then
-			sed -i -e "\$a $linenew" $HOST
-		else
-			sed -i -e "\$a0.0.0.0 $linenew" $HOST
-		fi
-	done
 fi
 
 if [[ -f $UNBLOCK ]]; then
