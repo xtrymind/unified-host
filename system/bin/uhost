@@ -10,7 +10,7 @@ fi
 alias grep="/sbin/.magisk/busybox/grep"
 alias cat="/sbin/.magisk/busybox/cat"
 alias sed="/sbin/.magisk/busybox/sed"
-HOST=/sbin/.magisk/img/hosts/system/etc/hosts
+HOST=/sbin/.magisk/modules/hosts/system/etc/hosts
 WHITELIST=/sdcard/whitelist
 UNBLOCK=/sdcard/myhosts
 TEMP=/cache/host_temp
